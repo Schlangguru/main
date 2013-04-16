@@ -10,23 +10,44 @@ import org.junit.Test;
  * @author Ulli Hafner
  */
 public class StringUtilsTest {
+
     /**
      * Prüft, ob die beiden gültigen String Eingaben korrekt verarbeitet werden.
      */
     @Test
-    public void testeGueltigeLeereStrings() {
-        assertTrue("Der String sollte leer sein", StringUtils.isEmpty(null));
-        assertTrue("Der String sollte leer sein", StringUtils.isEmpty(""));
+    public void testIsBlank_WithEmptyStrings() {
+        assertTrue("null wird nicht als leer erkannt", StringUtils.isBlank(null));
+        assertTrue("\"\" wird nicht als leer erkannt", StringUtils.isBlank(""));
     }
 
     /**
-     * Prüft, ob ungültigen String Eingaben korrekt verarbeitet werden.
+     * Prüft, ob ungültige String Eingaben korrekt erkannt werden.
      */
     @Test
-    public void testeLeereStringsMitZeichen() {
-        assertFalse("Der String sollte nicht als empty erkannt werden", StringUtils.isEmpty(" "));
-        assertFalse("Der String sollte nicht als empty erkannt werden", StringUtils.isEmpty("\t"));
-        assertFalse("Der String sollte nicht als empty erkannt werden", StringUtils.isEmpty("Hallo"));
+    public void testIsBlank_WithoutEmptyStrings() {
+        assertFalse("\" \" sollte nicht als leer erkannt werden", StringUtils.isBlank(" "));
+        assertFalse("Tabulator sollte nicht als leer erkannt werden", StringUtils.isBlank(" "));
+        assertFalse("Tabulator sollte nicht als leer erkannt werden", StringUtils.isBlank("\t"));
+        assertFalse("Zeilenumbruch sollte nicht als leer erkannt werden", StringUtils.isBlank("\n"));
+        assertFalse("\"abc\" sollte nicht als leer erkannt werden", StringUtils.isBlank("abc"));
+    }
+
+    @Test
+    public void testJoin() {
+        String msg = "Übergebe Werte \"Hallo\", null, \"du\"";
+
+        String str1 = "Hallo";
+        String str2 = null;
+        String str3 = "du";
+
+        String result = "Hallo,(null),du";
+
+        assertEquals(msg, result, StringUtils.join(str1, str2, str3));
+    }
+
+    @Test
+    public void testisValidISBN10() {
+        fail("Noch nicht implementiert");
     }
 
     /**

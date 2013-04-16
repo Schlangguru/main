@@ -9,17 +9,6 @@ import java.util.Set;
  * @author Ulli Hafner
  */
 public final class StringUtils {
-    /**
-     * Prüft, ob der übergebene String leer ist, d.h. kein Zeichen enthält.
-     *
-     * @param value
-     *            der zu prüfende String
-     * @return <code>true</code> falls der String kein Zeichen enthält oder <code>null</code> ist, <code>false</code>
-     *         andernfalls.
-     */
-    public static boolean isEmpty(final String value) {
-        return value == null || value.isEmpty();
-    }
 
     /**
      * Creates a new instance of {@link StringUtils}.
@@ -28,6 +17,46 @@ public final class StringUtils {
      */
     private StringUtils() {
         // prevents instantiation
+    }
+
+    /**
+     * Prüft, ob der übergebene String leer ist, d.h. kein Zeichen enthält.
+     *
+     * @param value der zu prüfende String
+     * @return true falls der String kein Zeichen enthält oder null ist, false sonst.
+     *
+     * @author Sebastian Seidl
+     */
+    public static boolean isBlank(final String value) {
+        return value == null || value.isEmpty();
+    }
+
+    /**
+     * Verkettet die übergebenen Strings zu einen neuen String.
+     * Die einzelenen Elemente werden durch ein Komma getrennt.
+     * Mindestens ein Element muss übergeben werden. Der Wert NULL
+     * wird durch "(null)" dargestellt.
+     *
+     * @param elements zu verkettende Strings
+     * @return String der aus allen Parameterelementen besteht
+     *
+     * @author Sebastian Seidl
+     */
+    public static String join(final String... elements) {
+        return null;
+    }
+
+    /**
+     * Prüft ob es sich bei dem eingegebenn String um eine gültige
+     * 10-Stellige ISBN Nummer handelt.
+     *
+     * @param isbnEingabe Zu prüfende Eingabe
+     * @return true wenn Eingabe gültige 10-Stellige ISBN / false sonst
+     *
+     * @author Sebastian Seidl
+     */
+    public static boolean isValidISBN10(final String isbnEingabe) {
+        return false;
     }
 
     /**
