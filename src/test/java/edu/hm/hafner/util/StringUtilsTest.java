@@ -66,7 +66,7 @@ public class StringUtilsTest {
     @Test
     public void testJoinWithNullParam() {
         String msg = "Übergebe einen einzigen Wert";
-        assertEquals(msg, "(null)", StringUtils.join(null));
+        assertEquals(msg, "(null)", StringUtils.join((String[])null));
     }
 
     /**
@@ -96,12 +96,9 @@ public class StringUtilsTest {
     public void testJoinWithPlentyOfParams() {
         String msg = "Übergabe eines Arrays mit 20 Elementen";
         String[] elems = new String[20];
-        for (int i = 0; i < 20; i++) {
+        for (int i = 1; i < 19; i++) {
             elems[i] = String.valueOf(i);
         }
-
-        elems[0] = null;
-        elems[19] = null;
 
         String result = "(null),1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,(null)";
 

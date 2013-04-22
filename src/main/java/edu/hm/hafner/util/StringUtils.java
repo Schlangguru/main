@@ -43,16 +43,16 @@ public final class StringUtils {
      * @author Sebastian Seidl
      */
     public static String join(final String... elements) {
-        if(elements == null) {
+        if (elements == null) {
             return "(null)";
         }
-        else if(elements.length <= 0) {
+        else if (elements.length <= 0) {
             throw new IllegalArgumentException("The Parameterlist should not be empty");
         }
 
         StringBuilder sb = new StringBuilder();
-        for(String str : elements) {
-            if(str == null) {
+        for (String str : elements) {
+            if (str == null) {
                 sb.append("(null),");
             }
             else {
@@ -60,7 +60,7 @@ public final class StringUtils {
             }
         }
         //Delete last Comma
-        sb.deleteCharAt(sb.length()-1);
+        sb.deleteCharAt(sb.length() - 1);
 
         return sb.toString();
     }
@@ -75,7 +75,7 @@ public final class StringUtils {
      * @author Sebastian Seidl
      */
     public static boolean isValidISBN10(final String isbnEingabe) {
-       if(isbnEingabe == null) {
+       if (isbnEingabe == null) {
            return false;
        }
 
@@ -165,7 +165,7 @@ public final class StringUtils {
         final Set<Character> characterSet = new HashSet<Character>();
 
         for (char character : passwordEingabe.toCharArray()) {
-            characterSet.add(character);
+            characterSet.add(Character.valueOf(character));
         }
 
         // Länge des Arrays = Anzahl der verscheidenen Zeichen
