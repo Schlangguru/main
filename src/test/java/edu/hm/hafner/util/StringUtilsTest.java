@@ -13,15 +13,19 @@ public class StringUtilsTest {
 
     /**
      * Prüft, ob die beiden gültigen String Eingaben korrekt verarbeitet werden.
+     *
+     * @author Sebastian Seidl
      */
     @Test
-    public void testIsBlank_WithEmptyStrings() {
+    public void testIsBlankWithEmptyStrings() {
         assertTrue("null wird nicht als leer erkannt", StringUtils.isBlank(null));
         assertTrue("\"\" wird nicht als leer erkannt", StringUtils.isBlank(""));
     }
 
     /**
      * Prüft, ob ungültige String Eingaben korrekt erkannt werden.
+     *
+     * @author Sebastian Seidl
      */
     @Test
     public void testIsBlankWithoutEmptyStrings() {
@@ -34,6 +38,8 @@ public class StringUtilsTest {
 
     /**
      * Prüft ob join() eine Exception wirft, wenn nicht min. ein Param übergeben wird.
+     *
+     * @author Sebastian Seidl
      */
     @Test(expected = IllegalArgumentException.class)
     public void testJoinWithNoParams() {
@@ -41,7 +47,9 @@ public class StringUtilsTest {
     }
 
     /**
-     * Prüft join() mit nur einem Parameter
+     * Prüft join() mit nur einem Parameter.
+     *
+     * @author Sebastian Seidl
      */
     @Test
     public void testJoinWithOneParam() {
@@ -50,7 +58,9 @@ public class StringUtilsTest {
     }
 
     /**
-     * Prüft join() mit nur NULL als Parameter
+     * Prüft join() mit nur NULL als Parameter.
+     *
+     * @author Sebastian Seidl
      */
     @Test
     public void testJoinWithNullParam() {
@@ -60,6 +70,8 @@ public class StringUtilsTest {
 
     /**
      * Prüft join() mit mehreren Parametern inkl. null
+     *
+     * @author Sebastian Seidl
      */
     @Test
     public void testJoinWithMoreParams() {
@@ -75,13 +87,15 @@ public class StringUtilsTest {
     }
 
     /**
-     * Prüft join() vielen Parametern und null am Amfang und Ende
+     * Prüft join() vielen Parametern und null am Amfang und Ende.
+     *
+     * @author Sebastian Seidl
      */
     @Test
     public void testJoinWithPlentyOfParams() {
         String msg = "Übergabe eines Arrays mit 20 Elementen";
         String[] elems = new String[20];
-        for(int i=0; i<20;i++) {
+        for (int i = 0; i < 20; i++) {
             elems[i] = String.valueOf(i);
         }
 
@@ -94,9 +108,78 @@ public class StringUtilsTest {
     }
 
 
+    /**
+     * Prüft isValidISBN10() mit gültigen ISBN Eingaben.
+     *
+     * @author Sebastian Seidl
+     */
     @Test
     public void testisValidISBN10() {
-        fail("Noch nicht implementiert");
+        String msg1 = "Übergebe ISBN: 3-86680-192-0 (Gültig)";
+        String msg2 = "Übergebe ISBN: 3 - 8 6 6 8 0 - 1 9 2 - 0 (Gültig)";
+
+        String isbn1 = "3-86680-192-0";
+        String isbn2 = "3 - 8 6 6 8 0 - 1 9 2 - 0";
+
+        assertTrue(msg1, StringUtils.isValidISBN10(isbn1));
+        assertTrue(msg2, StringUtils.isValidISBN10(isbn2));
+    }
+
+    /**
+     * Prüft isValidISBN10() mit null als Parameter.
+     *
+     * @author Sebastian Seidl
+     */
+    @Test
+    public void testisValidISBN10WithNullValue() {
+        String msg = "Übergebe ISBN: null";
+        String isbn = null;
+
+        assertFalse(msg, StringUtils.isValidISBN10(isbn));
+    }
+
+    /**
+     * Prüft isValidISBN10() mit mehr/weniger stelligen ISBN Eingaben.
+     *
+     * @author Sebastian Seidl
+     */
+    @Test
+    public void testisValidISBN10WithWrongLength() {
+        String msg1 = "Übergebe ISBN: 3-86680-192-08 (11 Stellen)";
+        String msg2 = "Übergebe ISBN: 3-86680-192 (9 Stellen)";
+        String isbn1 = "3-86680-192-08";
+        String isbn2 = "3-86680-192-";
+
+        assertFalse(msg1, StringUtils.isValidISBN10(isbn1));
+        assertFalse(msg2, StringUtils.isValidISBN10(isbn2));
+    }
+
+    /**
+     * Prüft isValidISBN10() mit 10 Stelliger ISBN aber falscher Parität.
+     *
+     * @author Sebastian Seidl
+     */
+    @Test
+    public void testisValidISBN10WithWrongParity() {
+        String msg = "Übergebe ISBN: 3-86680-192-9 (10 Stellen aber Falsche Parität)";
+
+        String isbn = "3-86680-192-9";
+
+        assertFalse(msg, StringUtils.isValidISBN10(isbn));
+    }
+
+    /**
+     * Prüft isValidISBN10() mit 10 Stelliger ISBN aber falschen Zeichen.
+     *
+     * @author Sebastian Seidl
+     */
+    @Test
+    public void testisValidISBN10WithNonNumericalCharacter() {
+        String msg = "Übergebe ISBN: 3-8a680-192-0 (10 Stellen aber falsche Zeichen enthalten)";
+
+        String isbn = "3-8a680-192-0";
+
+        assertFalse(msg, StringUtils.isValidISBN10(isbn));
     }
 
     /**

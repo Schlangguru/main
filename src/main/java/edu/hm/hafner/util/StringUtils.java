@@ -75,6 +75,44 @@ public final class StringUtils {
      * @author Sebastian Seidl
      */
     public static boolean isValidISBN10(final String isbnEingabe) {
+       if(isbnEingabe == null) {
+           return false;
+       }
+
+       //Remove formating
+       String isbn = isbnEingabe.replaceAll("-", "");   //Remove "-"
+       isbn = isbn.replaceAll("\\s", "");   //Remoe Whitespace
+
+       //check length
+       if (isbn.length() == 10) {
+           //check Parity:
+           //Parse String into int-Array
+           int[] z = new int[10];
+           try {
+               for (int i = 0; i <= 9; i++) {
+                   z[i] = Integer.parseInt(isbn.substring(i, i + 1));
+               }
+           }
+           catch (NumberFormatException e) {
+               //Found non-Numerical Charakter
+               return false;
+           }
+
+           //Calculate Parity
+           int parity = 0;
+           for (int i = 1; i <= 9; i++) {
+               parity += i * z[i - 1];
+           }
+           parity %= 11;
+
+           //compare calulated parity with sepcified parity
+           if (parity == z[9]) {
+               return true;
+           }
+
+           return false;
+        }
+
         return false;
     }
 
