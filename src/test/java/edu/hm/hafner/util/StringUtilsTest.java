@@ -14,6 +14,7 @@ public class StringUtilsTest {
     /**
      * Prüft, ob die beiden gültigen String Eingaben korrekt verarbeitet werden.
      *
+     *
      * @author Sebastian Seidl
      */
     @Test
