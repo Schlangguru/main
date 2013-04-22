@@ -24,7 +24,7 @@ public class StringUtilsTest {
      * Prüft, ob ungültige String Eingaben korrekt erkannt werden.
      */
     @Test
-    public void testIsBlank_WithoutEmptyStrings() {
+    public void testIsBlankWithoutEmptyStrings() {
         assertFalse("\" \" sollte nicht als leer erkannt werden", StringUtils.isBlank(" "));
         assertFalse("Tabulator sollte nicht als leer erkannt werden", StringUtils.isBlank(" "));
         assertFalse("Tabulator sollte nicht als leer erkannt werden", StringUtils.isBlank("\t"));
@@ -32,8 +32,37 @@ public class StringUtilsTest {
         assertFalse("\"abc\" sollte nicht als leer erkannt werden", StringUtils.isBlank("abc"));
     }
 
+    /**
+     * Prüft ob join() eine Exception wirft, wenn nicht min. ein Param übergeben wird.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testJoinWithNoParams() {
+        StringUtils.join();
+    }
+
+    /**
+     * Prüft join() mit nur einem Parameter
+     */
     @Test
-    public void testJoin() {
+    public void testJoinWithOneParam() {
+        String msg = "Übergebe einen einzigen Wert";
+        assertEquals(msg, "blub", StringUtils.join("blub"));
+    }
+
+    /**
+     * Prüft join() mit nur NULL als Parameter
+     */
+    @Test
+    public void testJoinWithNullParam() {
+        String msg = "Übergebe einen einzigen Wert";
+        assertEquals(msg, "(null)", StringUtils.join(null));
+    }
+
+    /**
+     * Prüft join() mit mehreren Parametern inkl. null
+     */
+    @Test
+    public void testJoinWithMoreParams() {
         String msg = "Übergebe Werte \"Hallo\", null, \"du\"";
 
         String str1 = "Hallo";
@@ -44,6 +73,26 @@ public class StringUtilsTest {
 
         assertEquals(msg, result, StringUtils.join(str1, str2, str3));
     }
+
+    /**
+     * Prüft join() vielen Parametern und null am Amfang und Ende
+     */
+    @Test
+    public void testJoinWithPlentyOfParams() {
+        String msg = "Übergabe eines Arrays mit 20 Elementen";
+        String[] elems = new String[20];
+        for(int i=0; i<20;i++) {
+            elems[i] = String.valueOf(i);
+        }
+
+        elems[0] = null;
+        elems[19] = null;
+
+        String result = "(null),1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,(null)";
+
+        assertEquals(msg, result, StringUtils.join(elems));
+    }
+
 
     @Test
     public void testisValidISBN10() {

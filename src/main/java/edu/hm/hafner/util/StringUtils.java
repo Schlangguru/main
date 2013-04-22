@@ -43,7 +43,26 @@ public final class StringUtils {
      * @author Sebastian Seidl
      */
     public static String join(final String... elements) {
-        return null;
+        if(elements == null) {
+            return "(null)";
+        }
+        else if(elements.length <= 0) {
+            throw new IllegalArgumentException("The Parameterlist should not be empty");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for(String str : elements) {
+            if(str == null) {
+                sb.append("(null),");
+            }
+            else {
+                sb.append(str + ",");
+            }
+        }
+        //Delete last Comma
+        sb.deleteCharAt(sb.length()-1);
+
+        return sb.toString();
     }
 
     /**
