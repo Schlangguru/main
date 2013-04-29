@@ -20,8 +20,14 @@ import org.junit.Test;
  */
 public class ByteStreamsTest {
 
+    /**
+     * Testet ByteStreams.copy(...) mit funktionierenden In-/Outputstreams bzw. OutputSupplier.
+     * InputStream liefert Content.
+     *
+     * @throws IOException io
+     */
     @Test
-    public void byteStreamsCopyTestWithNormalInput() throws IOException{
+    public void byteStreamsCopyTestWithNormalInput() throws IOException {
         InputStream in = mock(InputStream.class);
         OutputStream out = mock(OutputStream.class);
         OutputSupplier<OutputStream> outSup = mock(OutputSupplier.class);
@@ -38,8 +44,14 @@ public class ByteStreamsTest {
         verify(in, never()).close();
     }
 
+    /**
+     * Testet ByteStreams.copy(...) mit funktionierenden In-/Outputstreams bzw. OutputSupplier.
+     * Inputstream liefert keinen Content. (Sofort -1).
+     *
+     * @throws IOException io
+     */
     @Test
-    public void byteStreamsCopyTestWithEmptynput() throws IOException{
+    public void byteStreamsCopyTestWithEmptynput() throws IOException {
         InputStream in = mock(InputStream.class);
         OutputStream out = mock(OutputStream.class);
         OutputSupplier<OutputStream> outSup = mock(OutputSupplier.class);
@@ -56,8 +68,14 @@ public class ByteStreamsTest {
         verify(in, never()).close();
     }
 
+    /**
+     * Testet ByteStreams.copy(...)mit funktionierenden OutputStream-/tSupplier.
+     * InputStream wirft beim ersten reas(..) Aufruf eine Exception.
+     *
+     * @throws IOException io
+     */
     @Test(expected = IOException.class)
-    public void byteStreamsCopyTestThrowException() throws IOException{
+    public void byteStreamsCopyTestThrowException() throws IOException {
         InputStream in = mock(InputStream.class);
         OutputStream out = mock(OutputStream.class);
         OutputSupplier<OutputStream> outSup = mock(OutputSupplier.class);
@@ -68,8 +86,14 @@ public class ByteStreamsTest {
         ByteStreams.copy(in, outSup);
     }
 
+    /**
+     * Testet ByteStreams.copy(...) mit funktionierenden InputStream.
+     * OutputSupplier liefert null bei getOutput().
+     *
+     * @throws IOException io
+     */
     @Test(expected = NullPointerException.class)
-    public void byteStreamsCopyTestWithNullAsOutputStream() throws IOException{
+    public void byteStreamsCopyTestWithNullAsOutputStream() throws IOException {
         InputStream in = mock(InputStream.class);
         OutputSupplier<OutputStream> outSup = mock(OutputSupplier.class);
 
@@ -79,8 +103,14 @@ public class ByteStreamsTest {
         ByteStreams.copy(in, outSup);
     }
 
+    /**
+     * Testet ByteStreams.copy(...) mit funktionierenden InputStream.
+     * OutputStream wift Exception beim Aufruf von close().
+     *
+     * @throws IOException io
+     */
     @Test(expected = IOException.class)
-    public void byteStreamsCopyTestOutputStreamCloseException() throws IOException{
+    public void byteStreamsCopyTestOutputStreamCloseException() throws IOException {
         InputStream in = mock(InputStream.class);
         OutputStream out = mock(OutputStream.class);
         OutputSupplier<OutputStream> outSup = mock(OutputSupplier.class);
@@ -92,8 +122,14 @@ public class ByteStreamsTest {
         ByteStreams.copy(in, outSup);
     }
 
+    /**
+     * Testet ByteStreams.copy(...) mit funktionierenden InputStream.
+     * OutputStream wirft Exception bei write(...).
+     *
+     * @throws IOException io
+     */
     @Test(expected = IOException.class)
-    public void byteStreamsCopyTestOutputStreamException() throws IOException{
+    public void byteStreamsCopyTestOutputStreamException() throws IOException {
         InputStream in = mock(InputStream.class);
         OutputStream out = mock(OutputStream.class);
         OutputSupplier<OutputStream> outSup = mock(OutputSupplier.class);
